@@ -43,7 +43,6 @@
         107 MB: RDB/Tomcat (OAK-10752)
         -->
         <max.jar.size>119000000</max.jar.size>
-                      
     </properties>
 
     <build>
