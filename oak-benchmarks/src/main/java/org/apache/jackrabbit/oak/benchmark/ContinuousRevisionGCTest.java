@@ -23,9 +23,8 @@ import javax.jcr.Node;
 import javax.jcr.Repository;
 import javax.jcr.Session;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
-
 import org.apache.jackrabbit.oak.spi.state.NodeStore;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 
 /**
  * Similar to {@link RevisionGCTest} but runs continuously and performs

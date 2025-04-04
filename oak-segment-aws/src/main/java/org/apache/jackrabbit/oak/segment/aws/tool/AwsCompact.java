@@ -29,8 +29,6 @@ import java.nio.file.Files;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
-
 import org.apache.jackrabbit.oak.segment.SegmentCache;
 import org.apache.jackrabbit.oak.segment.aws.tool.AwsToolUtils.SegmentStoreType;
 import org.apache.jackrabbit.oak.segment.compaction.SegmentGCOptions.GCType;
@@ -45,6 +43,7 @@ import org.apache.jackrabbit.oak.segment.spi.persistence.JournalFileWriter;
 import org.apache.jackrabbit.oak.segment.spi.persistence.SegmentArchiveManager;
 import org.apache.jackrabbit.oak.segment.spi.persistence.SegmentNodeStorePersistence;
 import org.apache.jackrabbit.oak.segment.tool.Compact;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 
 /**
  * Perform an offline compaction of an existing AWS Segment Store.

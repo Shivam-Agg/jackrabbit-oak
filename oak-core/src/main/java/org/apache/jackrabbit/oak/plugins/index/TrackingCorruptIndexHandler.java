@@ -35,11 +35,11 @@ import javax.management.openmbean.TabularData;
 import javax.management.openmbean.TabularDataSupport;
 import javax.management.openmbean.TabularType;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import org.apache.jackrabbit.guava.common.base.Throwables;
 import org.apache.jackrabbit.guava.common.base.Ticker;
 import org.apache.jackrabbit.oak.stats.Clock;
 import org.apache.jackrabbit.oak.stats.MeterStats;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -168,12 +168,7 @@ public class TrackingCorruptIndexHandler implements CorruptIndexHandler {
         private final String asyncName;
         private final String path;
         private final long lastIndexerCycleCount = indexerCycleCount;
-        private final Stopwatch watch = Stopwatch.createStarted(new Ticker() {
-            @Override
-            public long read() {
-                return TimeUnit.MILLISECONDS.toNanos(clock.millis());
-            }
-        });
+        private final Stopwatch watch = Stopwatch.createStarted(clock);
 
         private String exception = "";
         private int failureCount;

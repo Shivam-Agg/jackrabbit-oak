@@ -20,9 +20,8 @@ package org.apache.jackrabbit.oak.plugins.document;
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
-
 import org.apache.jackrabbit.oak.plugins.document.VersionGarbageCollector.VersionGCStats;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +35,7 @@ public class VersionGCStatsTest {
     private static final Callable STOP = Stopwatch::stop;
 
     private final VersionGCStats stats = new VersionGCStats();
-    
+
     @Before
     public void before() throws Exception {
         forEachStopwatch(stats, START);
@@ -45,7 +44,7 @@ public class VersionGCStatsTest {
         }
         forEachStopwatch(stats, STOP);
     }
-    
+
     @Test
     public void addRun() {
         VersionGCStats cumulative = new VersionGCStats();

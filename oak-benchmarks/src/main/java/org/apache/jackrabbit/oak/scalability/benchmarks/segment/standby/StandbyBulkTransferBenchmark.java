@@ -16,14 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.jackrabbit.oak.scalability.benchmarks.segment.standby;
 
 import java.lang.management.ManagementFactory;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import javax.jcr.Credentials;
 import javax.jcr.Repository;
 import javax.management.MBeanServer;
@@ -35,6 +33,7 @@ import org.apache.jackrabbit.oak.segment.file.FileStore;
 import org.apache.jackrabbit.oak.segment.standby.client.StandbyClientSync;
 import org.apache.jackrabbit.oak.segment.standby.jmx.StandbyStatusMBean;
 import org.apache.jackrabbit.oak.segment.standby.server.StandbyServerSync;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

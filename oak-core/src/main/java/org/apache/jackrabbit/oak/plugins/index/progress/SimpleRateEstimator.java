@@ -16,12 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.apache.jackrabbit.oak.plugins.index.progress;
 
-import java.util.concurrent.TimeUnit;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
+import java.util.concurrent.TimeUnit;
 
 public class SimpleRateEstimator implements TraversalRateEstimator {
     private final Stopwatch w = Stopwatch.createStarted();

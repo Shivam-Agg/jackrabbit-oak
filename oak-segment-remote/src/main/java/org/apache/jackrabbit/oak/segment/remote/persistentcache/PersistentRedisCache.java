@@ -17,11 +17,11 @@
  */
 package org.apache.jackrabbit.oak.segment.remote.persistentcache;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import org.apache.jackrabbit.oak.commons.Buffer;
 import org.apache.jackrabbit.oak.segment.spi.monitor.IOMonitor;
 import org.apache.jackrabbit.oak.segment.spi.persistence.persistentcache.AbstractPersistentCache;
 import org.apache.jackrabbit.oak.segment.spi.persistence.persistentcache.SegmentCacheStats;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

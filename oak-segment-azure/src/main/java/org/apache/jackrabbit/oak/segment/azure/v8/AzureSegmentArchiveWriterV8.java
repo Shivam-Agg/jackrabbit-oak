@@ -26,7 +26,6 @@ import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
 import com.microsoft.azure.storage.blob.BlobRequestOptions;
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import com.microsoft.azure.storage.StorageException;
 import com.microsoft.azure.storage.blob.CloudBlobDirectory;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
@@ -40,6 +39,7 @@ import org.apache.jackrabbit.oak.segment.remote.AbstractRemoteSegmentArchiveWrit
 import org.apache.jackrabbit.oak.segment.remote.RemoteSegmentArchiveEntry;
 import org.apache.jackrabbit.oak.segment.spi.monitor.FileStoreMonitor;
 import org.apache.jackrabbit.oak.segment.spi.monitor.IOMonitor;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 
 public class AzureSegmentArchiveWriterV8 extends AbstractRemoteSegmentArchiveWriter {
 

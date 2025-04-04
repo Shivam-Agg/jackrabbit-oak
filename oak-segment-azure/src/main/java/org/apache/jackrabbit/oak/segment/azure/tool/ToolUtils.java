@@ -54,11 +54,10 @@ import org.apache.jackrabbit.oak.segment.spi.persistence.SegmentNodeStorePersist
 import org.apache.jackrabbit.oak.segment.spi.persistence.persistentcache.CachingPersistence;
 import org.apache.jackrabbit.oak.segment.spi.persistence.persistentcache.PersistentCache;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import org.apache.jackrabbit.guava.common.collect.Iterators;
 
-
 import org.apache.jackrabbit.oak.stats.StatisticsProvider;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

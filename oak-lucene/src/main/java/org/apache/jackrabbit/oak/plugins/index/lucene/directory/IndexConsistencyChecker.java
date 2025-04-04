@@ -32,7 +32,6 @@ import java.util.List;
 import javax.jcr.PropertyType;
 
 import org.apache.commons.io.input.CountingInputStream;
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.jackrabbit.oak.api.Blob;
@@ -49,6 +48,7 @@ import org.apache.jackrabbit.oak.plugins.tree.factories.RootFactory;
 import org.apache.jackrabbit.oak.spi.state.NodeState;
 import org.apache.jackrabbit.oak.spi.state.NodeStateUtils;
 import org.apache.jackrabbit.oak.spi.state.ReadOnlyBuilder;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.apache.lucene.index.CheckIndex;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.store.Directory;

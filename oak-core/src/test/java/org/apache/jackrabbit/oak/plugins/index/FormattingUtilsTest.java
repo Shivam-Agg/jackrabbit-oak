@@ -16,9 +16,8 @@
  */
 package org.apache.jackrabbit.oak.plugins.index;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
-import org.apache.jackrabbit.guava.common.base.Ticker;
 import org.apache.jackrabbit.oak.stats.NonTickingTestClock;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -28,13 +27,7 @@ import static org.junit.Assert.assertEquals;
 public class FormattingUtilsTest {
 
     private final NonTickingTestClock clock = new NonTickingTestClock();
-
-    private final Stopwatch sw = Stopwatch.createStarted(new Ticker() {
-        @Override
-        public long read() {
-            return TimeUnit.MILLISECONDS.toNanos(clock.millis());
-        }
-    });
+    private final Stopwatch sw = Stopwatch.createStarted(clock);
 
     @Test
     public void formatToSeconds() {

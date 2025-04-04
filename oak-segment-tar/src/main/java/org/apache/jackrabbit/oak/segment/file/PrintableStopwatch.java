@@ -15,12 +15,11 @@
  * limitations under the License.
  *
  */
-
 package org.apache.jackrabbit.oak.segment.file;
 
-import java.util.concurrent.TimeUnit;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A stopwatch that is also pretty-printable for usage in log messages.
@@ -46,6 +45,5 @@ class PrintableStopwatch {
     public String toString() {
         return String.format("%s (%d ms)", stopwatch, stopwatch.elapsed(TimeUnit.MILLISECONDS));
     }
-
 }
 

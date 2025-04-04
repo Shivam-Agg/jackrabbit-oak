@@ -18,8 +18,7 @@ package org.apache.jackrabbit.oak.plugins.document.check;
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
-
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.apache.jackrabbit.util.ISO8601;
 
 /**

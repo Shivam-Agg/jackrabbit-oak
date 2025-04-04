@@ -43,7 +43,6 @@ import java.util.stream.StreamSupport;
 
 import org.apache.commons.io.IOUtils;
 import com.mongodb.client.model.IndexOptions;
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import org.apache.jackrabbit.guava.common.collect.Iterators;
 import org.apache.jackrabbit.guava.common.util.concurrent.AtomicDouble;
 import com.mongodb.Block;
@@ -90,6 +89,7 @@ import org.apache.jackrabbit.oak.plugins.document.locks.StripedNodeDocumentLocks
 import org.apache.jackrabbit.oak.plugins.document.util.Utils;
 import org.apache.jackrabbit.oak.stats.Clock;
 import org.apache.jackrabbit.oak.commons.PerfLogger;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.bson.BSONException;
 import org.bson.BsonMaximumSizeExceededException;
 import org.bson.conversions.Bson;
