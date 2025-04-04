@@ -16,7 +16,6 @@
  */
 package org.apache.jackrabbit.oak.run;
 
-import static org.apache.jackrabbit.guava.common.base.Stopwatch.createStarted;
 import static java.io.File.createTempFile;
 import static java.util.Arrays.asList;
 import static org.apache.commons.io.FileUtils.forceDelete;
@@ -57,7 +56,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import org.apache.jackrabbit.oak.api.Blob;
 import org.apache.jackrabbit.oak.api.PropertyState;
 import org.apache.jackrabbit.oak.api.Type;
@@ -78,6 +76,7 @@ import org.apache.jackrabbit.oak.spi.blob.GarbageCollectableBlobStore;
 import org.apache.jackrabbit.oak.spi.state.ChildNodeEntry;
 import org.apache.jackrabbit.oak.spi.state.NodeState;
 import org.apache.jackrabbit.oak.spi.state.NodeStore;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -370,7 +369,7 @@ public class DataStoreCheckCommand implements Command {
     private static void checkConsistency(File ids, File refs, File missing, String trackRoot, String dsType)
         throws IOException {
         System.out.println("Starting consistency check");
-        Stopwatch watch = createStarted();
+        Stopwatch watch = Stopwatch.createStarted();
 
         FileLineDifferenceIterator iter = new FileLineDifferenceIterator(ids, refs, new java.util.function.Function<String, String>() {
             @Nullable
@@ -429,7 +428,7 @@ public class DataStoreCheckCommand implements Command {
             final GarbageCollectableBlobStore finalBlobStore = blobStore;
 
             System.out.println("Starting dump of blob references");
-            Stopwatch watch = createStarted();
+            Stopwatch watch = Stopwatch.createStarted();
 
             marker.collectReferences(
                 new ReferenceCollector() {
@@ -467,7 +466,7 @@ public class DataStoreCheckCommand implements Command {
         throws Exception {
 
         System.out.println("Starting dump of blob ids");
-        Stopwatch watch = createStarted();
+        Stopwatch watch = Stopwatch.createStarted();
 
         Iterator<String> blobIter = blobStore.getAllChunkIds(0);
         int count = writeStrings(blobIter, blob, false);
@@ -538,7 +537,7 @@ public class DataStoreCheckCommand implements Command {
         public void traverse(String ... paths) throws IOException {
             final AtomicInteger count = new AtomicInteger();
             System.out.println("Starting dump of blob references by traversing");
-            Stopwatch watch = createStarted();
+            Stopwatch watch = Stopwatch.createStarted();
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(references, StandardCharsets.UTF_8))) {
                 if (paths.length == 0) {

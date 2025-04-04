@@ -21,12 +21,12 @@ package org.apache.jackrabbit.oak.exporter;
 import java.io.File;
 
 import joptsimple.OptionParser;
-import org.apache.jackrabbit.guava.common.base.Stopwatch;
 import org.apache.jackrabbit.oak.run.cli.CommonOptions;
 import org.apache.jackrabbit.oak.run.cli.NodeStoreFixture;
 import org.apache.jackrabbit.oak.run.cli.NodeStoreFixtureProvider;
 import org.apache.jackrabbit.oak.run.cli.Options;
 import org.apache.jackrabbit.oak.run.commons.Command;
+import org.apache.jackrabbit.oak.stats.Stopwatch;
 
 public class NodeStateExportCommand implements Command {
     public static final String NAME = "export";
