@@ -35,7 +35,7 @@ public class Stopwatch {
     private boolean running;
     private final java.time.Clock clock;
 
-    private Stopwatch(Clock clock, boolean running) {
+    private Stopwatch(java.time.Clock clock, boolean running) {
         this.clock = clock;
         this.accumulated = 0L;
         this.starttime = this.clock.millis();
@@ -52,7 +52,7 @@ public class Stopwatch {
     /**
      * @return a running stop watch, using the supplied clock.
      */
-    public static Stopwatch createStarted(Clock clock) {
+    public static Stopwatch createStarted(java.time.Clock clock) {
         return new Stopwatch(clock, true);
     }
 
