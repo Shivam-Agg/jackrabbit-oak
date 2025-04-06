@@ -22,45 +22,54 @@ import org.apache.jackrabbit.oak.commons.conditions.Validate;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 /**
- * A stop watch based on {@link java.time.Clock}, measuring time in milliseconds.
+ * A stop watch based on either a {@link java.time.Clock} or a {@link java.security.Provider} of milliseconds,
+ * measuring elapsed time in milliseconds.
  * <p>
- * (inspired by Guava's)
+ * Inspired by Guava's.
  */
 public class Stopwatch {
 
     private long starttime;
     private long accumulated;
     private boolean running;
-    private final java.time.Clock clock;
+    private final Supplier<Long> ticker;
 
-    private Stopwatch(java.time.Clock clock, boolean running) {
-        this.clock = clock;
+    private Stopwatch(Supplier<Long> ticker, boolean running) {
+        this.ticker = ticker;
         this.accumulated = 0L;
-        this.starttime = this.clock.millis();
+        this.starttime = ticker.get();
         this.running = running;
     }
 
     /**
-     * @return a running stop watch, using {@link Clock#SIMPLE}.
+     * @return a running stop watch, using {@link System#nanoTime()}.
      */
     public static Stopwatch createStarted() {
-        return new Stopwatch(Clock.SIMPLE, true);
+        return new Stopwatch(() -> tickerNanoAsMs(), true);
     }
 
     /**
      * @return a running stop watch, using the supplied clock.
      */
     public static Stopwatch createStarted(java.time.Clock clock) {
-        return new Stopwatch(clock, true);
+        return new Stopwatch(() -> clock.millis(), true);
     }
 
     /**
-     * @return a non-running stop watch, using {@link Clock#SIMPLE}.
+     * @return a running stop watch, using the supplied provider.
+     */
+    public static Stopwatch createStarted(Supplier<Long> ticker) {
+        return new Stopwatch(ticker, true);
+    }
+
+    /**
+     * @return a non-running stop watch, using {@link System#nanoTime()}.
      */
     public static Stopwatch createUnstarted() {
-        return new Stopwatch(Clock.SIMPLE, false);
+        return new Stopwatch(() -> tickerNanoAsMs(), false);
     }
 
     /**
@@ -69,7 +78,7 @@ public class Stopwatch {
      */
     public Stopwatch start() {
         Validate.checkState(!this.running, "Stopwatch already started.");
-        this.starttime = clock.millis();
+        this.starttime = this.ticker.get();
         this.running = true;
         return this;
     }
@@ -80,7 +89,7 @@ public class Stopwatch {
      */
     public Stopwatch stop() {
         Validate.checkState(this.running, "Stopwatch not running.");
-        this.accumulated += this.clock.millis() - this.starttime;
+        this.accumulated += elapsedMillis();
         this.starttime = 0L;
         this.running = false;
         return this;
@@ -127,7 +136,13 @@ public class Stopwatch {
     }
 
     private long elapsedMillis() {
-        long delta = this.running ? this.clock.millis() - this.starttime : 0;
+        long delta = this.running ? this.ticker.get() - this.starttime : 0;
         return this.accumulated + delta;
+    }
+
+    private static long NS_PER_MS = TimeUnit.MILLISECONDS.toNanos(1);
+
+    private static long tickerNanoAsMs() {
+        return System.nanoTime() / NS_PER_MS;
     }
 }
