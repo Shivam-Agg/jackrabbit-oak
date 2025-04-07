@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import javax.management.openmbean.CompositeDataSupport;
 import javax.management.openmbean.CompositeType;
@@ -36,7 +37,6 @@ import javax.management.openmbean.TabularDataSupport;
 import javax.management.openmbean.TabularType;
 
 import org.apache.jackrabbit.guava.common.base.Throwables;
-import org.apache.jackrabbit.guava.common.base.Ticker;
 import org.apache.jackrabbit.oak.stats.Clock;
 import org.apache.jackrabbit.oak.stats.MeterStats;
 import org.apache.jackrabbit.oak.stats.Stopwatch;
@@ -168,7 +168,7 @@ public class TrackingCorruptIndexHandler implements CorruptIndexHandler {
         private final String asyncName;
         private final String path;
         private final long lastIndexerCycleCount = indexerCycleCount;
-        private final Stopwatch watch = Stopwatch.createStarted(clock);
+        private final Stopwatch watch = Stopwatch.createStarted(() -> TimeUnit.MICROSECONDS.toNanos(clock.millis()));
 
         private String exception = "";
         private int failureCount;

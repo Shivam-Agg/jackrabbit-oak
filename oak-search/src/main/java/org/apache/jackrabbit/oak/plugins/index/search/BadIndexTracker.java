@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.jackrabbit.guava.common.base.Supplier;
 import org.apache.jackrabbit.guava.common.base.Throwables;
 import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.slf4j.Logger;
@@ -155,8 +156,8 @@ public class BadIndexTracker {
         final int lastIndexerCycleCount = indexerCycleCount;
         private final long createdTime = clock.millis();
         private final boolean persistedIndex;
-        private final Stopwatch created = Stopwatch.createStarted(clock);
-        private final Stopwatch watch = Stopwatch.createStarted(clock);
+        private final Stopwatch created = Stopwatch.createStarted(() -> TimeUnit.MILLISECONDS.toNanos(clock.millis()));
+        private final Stopwatch watch = Stopwatch.createStarted(() -> TimeUnit.MILLISECONDS.toNanos(clock.millis()));
         private String exception;
         private int accessCount;
         private int failedAccessCount;

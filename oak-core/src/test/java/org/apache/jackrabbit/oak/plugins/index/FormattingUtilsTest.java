@@ -16,18 +16,18 @@
  */
 package org.apache.jackrabbit.oak.plugins.index;
 
-import org.apache.jackrabbit.oak.stats.NonTickingTestClock;
 import org.apache.jackrabbit.oak.stats.Stopwatch;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
 
 public class FormattingUtilsTest {
 
-    private final NonTickingTestClock clock = new NonTickingTestClock();
-    private final Stopwatch sw = Stopwatch.createStarted(clock);
+    private final NonTickingTimeSupplier ticker = new NonTickingTimeSupplier();
+    private final Stopwatch sw = Stopwatch.createStarted(ticker);
 
     @Test
     public void formatToSeconds() {
@@ -48,7 +48,7 @@ public class FormattingUtilsTest {
     }
 
     private void testFormatToSeconds(String expected, long millis) {
-        clock.setTime(millis);
+        ticker.setTimeMillis(millis);
         assertEquals(expected, FormattingUtils.formatToSeconds(sw));
     }
 
@@ -71,7 +71,7 @@ public class FormattingUtilsTest {
     }
 
     private void testFormatToMillis(String expected, long millis) {
-        clock.setTime(millis);
+        ticker.setTimeMillis(millis);
         assertEquals(expected, FormattingUtils.formatToMillis(sw));
     }
 
@@ -91,5 +91,19 @@ public class FormattingUtilsTest {
         assertEquals(-1.0, FormattingUtils.safeComputeAverage(100, 0), 0.001);
         assertEquals(100.0, FormattingUtils.safeComputeAverage(100, 1), 0.001);
         assertEquals(33.333, FormattingUtils.safeComputeAverage(100, 3), 0.001);
+    }
+
+    private static class NonTickingTimeSupplier implements Supplier<Long> {
+
+        private long time;
+
+        public void setTimeMillis(long time) {
+            this.time = TimeUnit.MILLISECONDS.toNanos(time);
+        }
+
+        @Override
+        public Long get() {
+            return this.time;
+        }
     }
 }
