@@ -167,7 +167,7 @@ public class TrackingCorruptIndexHandler implements CorruptIndexHandler {
         private final String asyncName;
         private final String path;
         private final long lastIndexerCycleCount = indexerCycleCount;
-        private final Stopwatch watch = Stopwatch.createStarted(() -> TimeUnit.MILLISECONDS.toNanos(clock.millis()));
+        private final Stopwatch watch = Stopwatch.createStarted(clock);
 
         private String exception = "";
         private int failureCount;

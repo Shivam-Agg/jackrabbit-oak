@@ -25,7 +25,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 /**
- * A stop watch based on a {@link Supplier} of nanoseconds.
+ * A stop watch based either on a {@link Supplier} of nanoseconds, or a {@link java.time.Clock}.
+ * <p>
+ * The accuracy of measurements depends on the precision of the time source, which likely depends on platform and
+ * configuration.
  * <p>
  * Inspired by Guava's.
  */
@@ -55,6 +58,15 @@ public class Stopwatch {
      */
     public static Stopwatch createStarted(Supplier<Long> ticker) {
         return new Stopwatch(ticker).start();
+    }
+
+    /**
+     * @return a running stop watch, using the supplied clock.
+     * <p>
+     * Note that only {@link Clock#millis()} will be used, thus the watch will have ms precision at most.
+     */
+    public static Stopwatch createStarted(java.time.Clock clock) {
+        return new Stopwatch(clockAsLongSupplier(clock)).start();
     }
 
     /**
@@ -136,5 +148,9 @@ public class Stopwatch {
 
     private static long tick() {
         return System.nanoTime();
+    }
+
+    private static Supplier<Long> clockAsLongSupplier(java.time.Clock clock) {
+        return () -> TimeUnit.MILLISECONDS.toNanos(clock.millis());
     }
 }

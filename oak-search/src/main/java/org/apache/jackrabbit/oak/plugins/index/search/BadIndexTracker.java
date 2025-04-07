@@ -156,8 +156,8 @@ public class BadIndexTracker {
         final int lastIndexerCycleCount = indexerCycleCount;
         private final long createdTime = clock.millis();
         private final boolean persistedIndex;
-        private final Stopwatch created = Stopwatch.createStarted(() -> TimeUnit.MILLISECONDS.toNanos(clock.millis()));
-        private final Stopwatch watch = Stopwatch.createStarted(() -> TimeUnit.MILLISECONDS.toNanos(clock.millis()));
+        private final Stopwatch created = Stopwatch.createStarted(clock);
+        private final Stopwatch watch = Stopwatch.createStarted(clock);
         private String exception;
         private int accessCount;
         private int failedAccessCount;
