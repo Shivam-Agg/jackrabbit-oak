@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
 import javax.management.openmbean.CompositeDataSupport;
 import javax.management.openmbean.CompositeType;
@@ -168,7 +167,7 @@ public class TrackingCorruptIndexHandler implements CorruptIndexHandler {
         private final String asyncName;
         private final String path;
         private final long lastIndexerCycleCount = indexerCycleCount;
-        private final Stopwatch watch = Stopwatch.createStarted(() -> TimeUnit.MICROSECONDS.toNanos(clock.millis()));
+        private final Stopwatch watch = Stopwatch.createStarted(() -> TimeUnit.MILLISECONDS.toNanos(clock.millis()));
 
         private String exception = "";
         private int failureCount;
