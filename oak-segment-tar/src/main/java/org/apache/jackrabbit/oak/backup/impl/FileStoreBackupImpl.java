@@ -41,7 +41,7 @@ import org.apache.jackrabbit.oak.segment.file.InvalidFileStoreVersionException;
 import org.apache.jackrabbit.oak.segment.file.cancel.Canceller;
 import org.apache.jackrabbit.oak.segment.file.tar.GCGeneration;
 import org.apache.jackrabbit.oak.segment.file.tooling.BasicReadOnlyBlobStore;
-import org.apache.jackrabbit.oak.stats.Stopwatch;
+import org.apache.jackrabbit.oak.commons.time.Stopwatch;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

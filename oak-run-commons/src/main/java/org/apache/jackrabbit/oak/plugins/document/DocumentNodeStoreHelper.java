@@ -36,7 +36,7 @@ import org.apache.jackrabbit.oak.commons.json.JsopTokenizer;
 import org.apache.jackrabbit.oak.plugins.document.mongo.MongoDocumentStore;
 import org.apache.jackrabbit.oak.plugins.document.mongo.MongoDocumentStoreHelper;
 import org.apache.jackrabbit.oak.plugins.document.util.Utils;
-import org.apache.jackrabbit.oak.stats.Stopwatch;
+import org.apache.jackrabbit.oak.commons.time.Stopwatch;
 import org.bson.conversions.Bson;
 
 import com.mongodb.BasicDBObject;

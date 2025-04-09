@@ -35,7 +35,7 @@ import org.apache.jackrabbit.oak.spi.state.NodeBuilder;
 import org.apache.jackrabbit.oak.spi.state.NodeState;
 import org.apache.jackrabbit.oak.spi.state.NodeStore;
 import org.apache.jackrabbit.oak.stats.StatisticsProvider;
-import org.apache.jackrabbit.oak.stats.Stopwatch;
+import org.apache.jackrabbit.oak.commons.time.Stopwatch;
 
 import java.io.Closeable;
 import java.io.File;

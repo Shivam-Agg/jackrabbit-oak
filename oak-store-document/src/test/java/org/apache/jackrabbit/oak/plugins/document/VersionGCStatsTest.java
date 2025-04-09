@@ -21,7 +21,7 @@ package org.apache.jackrabbit.oak.plugins.document;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.jackrabbit.oak.plugins.document.VersionGarbageCollector.VersionGCStats;
-import org.apache.jackrabbit.oak.stats.Stopwatch;
+import org.apache.jackrabbit.oak.commons.time.Stopwatch;
 import org.junit.Before;
 import org.junit.Test;
 

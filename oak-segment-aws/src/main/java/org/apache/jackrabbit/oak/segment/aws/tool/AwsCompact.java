@@ -43,7 +43,7 @@ import org.apache.jackrabbit.oak.segment.spi.persistence.JournalFileWriter;
 import org.apache.jackrabbit.oak.segment.spi.persistence.SegmentArchiveManager;
 import org.apache.jackrabbit.oak.segment.spi.persistence.SegmentNodeStorePersistence;
 import org.apache.jackrabbit.oak.segment.tool.Compact;
-import org.apache.jackrabbit.oak.stats.Stopwatch;
+import org.apache.jackrabbit.oak.commons.time.Stopwatch;
 
 /**
  * Perform an offline compaction of an existing AWS Segment Store.

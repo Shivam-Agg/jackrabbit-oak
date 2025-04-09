@@ -16,10 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.jackrabbit.oak.stats;
+package org.apache.jackrabbit.oak.commons.time;
 
 import org.apache.jackrabbit.oak.commons.conditions.Validate;
 
+import java.time.Clock;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -150,7 +151,7 @@ public class Stopwatch {
         return System.nanoTime();
     }
 
-    private static Supplier<Long> clockAsLongSupplier(java.time.Clock clock) {
+    private static Supplier<Long> clockAsLongSupplier(Clock clock) {
         return () -> TimeUnit.MILLISECONDS.toNanos(clock.millis());
     }
 }

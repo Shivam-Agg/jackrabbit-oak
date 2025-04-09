@@ -28,7 +28,7 @@ import org.apache.jackrabbit.oak.segment.remote.AbstractRemoteSegmentArchiveWrit
 import org.apache.jackrabbit.oak.segment.remote.RemoteSegmentArchiveEntry;
 import org.apache.jackrabbit.oak.segment.spi.monitor.FileStoreMonitor;
 import org.apache.jackrabbit.oak.segment.spi.monitor.IOMonitor;
-import org.apache.jackrabbit.oak.stats.Stopwatch;
+import org.apache.jackrabbit.oak.commons.time.Stopwatch;
 
 public class AwsSegmentArchiveWriter extends AbstractRemoteSegmentArchiveWriter {
 
