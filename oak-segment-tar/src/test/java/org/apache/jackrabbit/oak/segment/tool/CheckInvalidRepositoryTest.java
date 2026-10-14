@@ -111,6 +111,33 @@ public class CheckInvalidRepositoryTest extends CheckRepositoryTestBase {
     }
 
     @Test
+    public void testStopsAtFirstCorruptPathByDefault() {
+        int checkResult = check(b -> b
+            .withFilterPaths(Set.of("/"))
+            .withCheckpoints(new HashSet<>())
+            .withRevisionsCount(1)
+        );
+
+        assertCheckFailed(checkResult);
+        assertEquals(1, countTraversalErrors());
+    }
+
+    @Test
+    public void testContinueOnErrorReportsAllCorruptPaths() {
+        int checkResult = check(b -> b
+            .withFilterPaths(Set.of("/"))
+            .withCheckpoints(new HashSet<>())
+            .withRevisionsCount(1)
+            .withContinueOnError(true)
+        );
+
+        assertCheckFailed(checkResult);
+        assertExpectedOutput(log.errString(), List.of("Error while traversing /a", "Error while traversing /z"));
+        assertExpectedOutput(log.outString(), List.of("No good revision found"));
+        assertEquals(2, countTraversalErrors());
+    }
+
+    @Test
     public void testCorruptHeadWithValidCheckpoints() {
         int checkResult = check(b -> b
             .withFilterPaths(Set.of("/"))
@@ -263,6 +290,57 @@ public class CheckInvalidRepositoryTest extends CheckRepositoryTestBase {
             .stream()
             .flatMap(m -> m.values().stream())
             .anyMatch(Objects::nonNull);
+    }
+
+    @Test
+    public void testMultipleBrokenRevisionsWithoutContinueOnError() throws Exception {
+        addInvalidRevisionWithOtherCorruptPaths();
+
+        int checkResult = check(b -> b
+            .withFilterPaths(Set.of("/"))
+            .withCheckpoints(new HashSet<>())
+        );
+
+        assertCheckSucceeded(checkResult);
+        assertExpectedOutput(log.outString(), List.of("Searched through 3 revisions"));
+        assertEquals(2, countTraversalErrors());
+    }
+
+    @Test
+    public void testMultipleBrokenRevisionsWithContinueOnError() throws Exception {
+        addInvalidRevisionWithOtherCorruptPaths();
+
+        int checkResult = check(b -> b
+            .withFilterPaths(Set.of("/"))
+            .withCheckpoints(new HashSet<>())
+            .withContinueOnError(true)
+        );
+
+        assertCheckSucceeded(checkResult);
+        assertExpectedOutput(log.outString(), List.of("Searched through 3 revisions"));
+        assertExpectedOutput(log.errString(), List.of(
+            "Error while traversing /d", "Error while traversing /e",
+            "Error while traversing /a", "Error while traversing /z"));
+        assertEquals(4, countTraversalErrors());
+    }
+
+    @Test
+    public void testContinueOnErrorWithSharedCorruptionAcrossRevisions() throws Exception {
+        addMoreSegments();
+
+        int checkResult = check(b -> b
+            .withFilterPaths(Set.of("/"))
+            .withCheckpoints(new HashSet<>())
+            .withRevisionsCount(2)
+            .withContinueOnError(true)
+        );
+
+        assertCheckFailed(checkResult);
+        assertEquals(4, countTraversalErrors());
+    }
+
+    private int countTraversalErrors() {
+        return log.errString().split("Error while traversing", -1).length - 1;
     }
 
     private int check(Consumer<Check.Builder> builderConsumer) {
